@@ -18,10 +18,15 @@ catch(Exception $e)
 
 }
 
+// Vérification de la validité des informations
+
+		$pass = htmlspecialchars($_POST['pass']);
+		$pseudo = htmlspecialchars($_POST['pseudo']);
+
 // Hachage du mot de passe
 
-$pass_hache = password_hash($_POST['pass'], PASSWORD_DEFAULT);
-
+// on crypte le mot de passe
+		$pass = sha1($pass);
 
 // Vérification des identifiants
 
@@ -31,7 +36,7 @@ $req->execute(array(
 
     'pseudo' => $pseudo,
 
-    'pass' => $pass_hache));
+    'pass' => $pass));
 
 
 $resultat = $req->fetch();
