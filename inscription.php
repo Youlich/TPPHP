@@ -28,8 +28,7 @@
 
         <label for="email">Adresse e-mail</label> <input type="text" name="email" id="email" /> <br /><br />
 
-       
-        <label for="group">Vous souhaitez devenir </label> <SELECT name="group" id="group">
+        <label for="type_membre">Vous souhaitez devenir </label> <SELECT name="type_membre" id="type_membre">
                 <OPTION>membre
                 <OPTION>administrateur
                 <OPTION>contributeur

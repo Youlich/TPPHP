@@ -25,39 +25,41 @@ catch(Exception $e)
 
 // Hachage du mot de passe
 
-// on crypte le mot de passe
-		$pass = sha1($pass);
+		$pass_hache = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
 // Vérification des identifiants
 
-$req = $bdd->prepare('SELECT id FROM membres WHERE pseudo = :pseudo AND pass = :pass');
+		$req = $bdd->prepare('SELECT id FROM membres WHERE pseudo = :pseudo AND pass = :pass');
 
-$req->execute(array(
+		$req->execute(array(
 
-    'pseudo' => $pseudo,
+		    'pseudo' => $pseudo,
 
-    'pass' => $pass));
-
-
-$resultat = $req->fetch();
+		    'pass' => $pass_hache));
 
 
-if (!$resultat)
+		$resultat = $req->fetch();
 
-{
 
-    echo 'Mauvais identifiant ou mot de passe !';
+		if (!$resultat)
 
-}
+		{
 
-else
+		    echo 'Mauvais identifiant ou mot de passe !';
 
-{
+		}
 
-    session_start();
+		else
 
-    $_SESSION['pseudo'] = $pseudo;
+		{
 
-    echo 'Vous êtes connecté !';
+		    session_start();
 
-}
+		    $_SESSION['id'] = $resultat['id'];
+
+		    $_SESSION['pseudo'] = $pseudo;
+
+		    echo 'Vous êtes connecté !';
+
+		}
+?>
