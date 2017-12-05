@@ -6,43 +6,64 @@
 
         <meta charset="utf-8" />
 
-        <title>Bienvenue sur mon blog !</title>
+        <title>Connexion</title>
 
     </head>
 
-    <style>
-
-    body
-
-    {
-
-        text-align:center;
-
-    }
-
-    </style>
-
     <body>
 
-    <h1>Vous êtes déjà membre ?</h1>
+    <div align="center">
 
-    <form action="verifconnexion.php" method="post">
+        <h1>Connexion</h1>
+        <br /> <br />
 
-        <p>
+        <form action="verifconnexion.php" method="post">
 
-        <label for="pseudo">Pseudo</label> :  <input type="text" name="pseudo" id="pseudo" /><br /><br />
-
-        <label for="pass">Mot de passe</label> : <input type="password" name="pass" id="pass" /><br /><br />
-
-        <label for="auto">Connexion automatique</label> <input type="checkbox" checked="true" id="case" /> <br /><br />
-
-
-        <input type="submit" value="Valider" />
-
-    </p>
+            <table>
+                <tr>
+                    <td align="right">
+                    <label for="pseudo">Pseudo</label>
+                    </td>
+                    <td>
+                    <input type="text" name="pseudo" id="pseudo" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                    <label for="pass">Mot de passe</label>
+                    </td>
+                    <td>
+                    <input type="password" name="pass" id="pass" />
+                    </td>
+                </tr>
+               <tr>
+                <td align="right">
+                <label for="auto">Connexion automatique</label>
+                </td>
+                <td>
+                <input type="checkbox" checked="true" id="case" />
+                </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                    </td>
+                    <td>
+                    <input type="submit" name= "submit" value="Se connecter" />
+                    </td>
+                </tr>
+            </table>
+            </br></br>
 
     </form>
 
+    <?php
+
+    if(isset($_GET['error']))
+    {
+        echo $_GET['error'];
+    }
+ ?>   
+    </br> </br>
     <a href="inscription.php">Créer votre compte ici</a>
 
 

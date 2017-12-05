@@ -1,9 +1,4 @@
-label, select, input
-
+#pseudo, #pass, #newpass, #email
 {
-	display: block; 
-    width: 200px;
-    float: left;
-
+	width: 200px;
 }
-
