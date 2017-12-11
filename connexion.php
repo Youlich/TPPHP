@@ -27,40 +27,48 @@ if(isset($_POST['submit']))
     {
         $pass = htmlspecialchars($_POST['pass']);
         $pseudo = htmlspecialchars($_POST['pseudo']);
-        $pass_hache = password_hash($_POST['pass'], PASSWORD_DEFAULT); 
-        
 
-        // Vérification du pseudo dans la base de données
+        // On vérifie si le pseudo existe en base de données
+        $req = $bdd->prepare('SELECT * FROM membres WHERE pseudo = :pseudo');
+        $req->execute(array('pseudo' => $pseudo));
 
-                $req = $bdd->prepare('SELECT id FROM membres WHERE pseudo = :pseudo AND pass = :pass');
-                $req->execute(array('pseudo' => $pseudo,
-                                    'pass' => $pass_hache));
-                
-                $resultat = $req->fetch();
+        $resultat = $req->fetch();
 
-                                if ($_POST['pseudo']==$pseudo)
-                                {
-                                    if (password_verify($pass,$pass_hache))                              
-                                    {  
-                                   
-                                             $_SESSION['id'] = $resultat['id'];                        
-                                             $_SESSION['pseudo'] = $resultat['pseudo'];
-                                             $_SESSION['pass'] = $resultat['pass'];
-                                             header('location:site.php');
-                                    } else {
-                                            echo 'Erreur dans votre mot de passe';
-                                            }
-                                } else {
-                                        echo 'Pseudo non reconnu';
-                                        }
-                   
+
+        if ($resultat) { // Le pseudo existe
+
+            // Dans la requete précédente qui consistait à savoir si le pseudo existe on a récupéré le pass haché
+            $pass_hache_dans_bdd = $resultat['pass'];
+
+            // Super on a le mot de passe haché de la personne dont le pseudo est $pseudo
+
+            // Maintenant on peut vérifier si le pass saisi correspond au pass de la base de donnée
+            // Si ca correspond, on peut faire se connecter la personne
+            // On le fait avec la fonction password_verify()
+
+            if (password_verify($pass, $pass_hache_dans_bdd)) {
+
+                $_SESSION['id'] = $resultat['id'];
+                $_SESSION['pseudo'] = $resultat['pseudo'];
+                $_SESSION['pass'] = $resultat['pass'];
+                header('location:site.php');
+
+            } else {
+
+                $error_message = 'Erreur dans le mot de passe';
+            }
+
+        } else { // Le pseudo n'existe pas en base de données
+
+            $error_message = 'Pseudo non reconnu';
+        }
                         
                                              
                 
                                  
     } else {
-            echo 'Merci de remplir tous les champs';
-            } 
+            $error_message = 'Merci de remplir tous les champs';
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -85,6 +93,16 @@ if(isset($_POST['submit']))
                 <br /> <br />
 
                         <form action="" method="post">
+
+                            <?php
+
+                            // Si la variable $error_message est setté
+                            if (isset($error_message)) {
+
+                                echo "<h2>" . $error_message . "</h2>";
+                            }
+
+                            ?>
 
                             <table>
                                 <tr>
