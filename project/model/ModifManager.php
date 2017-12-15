@@ -23,31 +23,3 @@ class ModifManager extends Manager
 		}
 }
 }
-?>
-
-<!DOCTYPE html>
-
-<html>
-
-    <head>
-
-        <link rel="stylesheet" type="text/css" href="style.css">
-
-        <meta charset="utf-8" />
-
-        <title>Modification</title>
-
-    </head>
-
-            <body>
-
-            <div align="center">
-
-                <h1>Modification de votre commentaire</h1>
-                <br /> <br />
-                <p> <?=$message ?></p>
-             </div>
-         </body>
-</html>
-
-

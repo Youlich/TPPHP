@@ -25,6 +25,15 @@ function post()
     require('view/frontend/postView.php');
 }
 
+function comment()
+{
+    $commentManager = new \TPPHP\project\model\CommentManager();
+
+    $comment = $commentManager->getComment($_GET['ModComm']);
+
+    require('view/frontend/commentView.php');
+}
+
 function addComment($postId, $author, $comment)
 {
     $commentManager = new \TPPHP\project\model\CommentManager();

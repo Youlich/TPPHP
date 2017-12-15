@@ -26,6 +26,15 @@ try {
             else {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
+        } elseif($_GET['action'] == 'Comment') {
+
+            if (isset($_GET['ModComm']) && $_GET['ModComm'] > 0) {
+
+                comment();
+            }
+            else {
+                throw new Exception('Aucun identifiant de commentaire envoyé');
+            }
         }
     }
     else {
